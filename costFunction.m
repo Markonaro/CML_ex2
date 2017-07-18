@@ -11,7 +11,6 @@ m = length(y); % number of training examples
 J = 0;
 grad = zeros(size(theta));
 
-% ATTEMPT TO PUSH A COMMIT TO GITHUB FROM LOCAL REPO
 
 % ====================== YOUR CODE HERE ======================
 % Instructions: Compute the cost of a particular choice of theta.
