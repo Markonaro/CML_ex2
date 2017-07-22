@@ -4,20 +4,24 @@ function p = predict(theta, X)
 %   p = PREDICT(theta, X) computes the predictions for X using a 
 %   threshold at 0.5 (i.e., if sigmoid(theta'*x) >= 0.5, predict 1)
 
-m = size(X, 1); % Number of training examples
+% Number of training examples.
+m = size(X, 1);
 
-% You need to return the following variables correctly
+% Initialize p to have equivalent size to the # of training examples.
 p = zeros(m, 1);
 
-% ====================== YOUR CODE HERE ======================
-% Instructions: Complete the following code to make predictions using
-%               your learned logistic regression parameters. 
-%               You should set p to a vector of 0's and 1's
-%
+% Weighting all entries by derived theta paramters, then transposing to
+% their probability via the sigmoid function.
+ghX = sigmoid(X*theta);
 
-
-
-
+% For each training example, determine predicted outcome.
+for i=1:m
+   if (ghX(i) < 0.5)
+       p(i) = 0;
+   else
+       p(i) = 1;
+   end
+end
 
 
 
