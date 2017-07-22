@@ -12,7 +12,7 @@ ghX = sigmoid(X*theta);
 
 % The discrepency between what the current theta values predict and what
 % the actual values are
-J = (1/m)*sum(-y.*log(ghX)-(1-y).*log(1-ghX));
+J = (-1/m)*sum(y.*log(ghX)+(1-y).*log(1-ghX));
 
 % How severe the error of J is relative to its minimum (J'(theta)).
 grad = (1/m)*sum((ghX-y).*X);
