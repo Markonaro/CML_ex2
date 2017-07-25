@@ -12,18 +12,27 @@ J = 0;
 grad = zeros(size(theta));
 
 % ====================== YOUR CODE HERE ======================
-% Instructions: Compute the cost of a particular choice of theta.
-%               You should set J to the cost.
-%               Compute the partial derivatives and set grad to the partial
+% Instructions: Compute the partial derivatives and set grad to the partial
 %               derivatives of the cost w.r.t. each parameter in theta
 
+% Calculating the logistic regression (sigmoid) of all examples (X)
+% against weights (theta).
 ghX = sigmoid(X*theta);
 
-J = (-1/m)*sum(y.*log(ghX)+(1-y).*log(1-ghX)) + ...
+% Computing the cost of the each feature for all examples in set X 
+% after being adjusted by weights (theta), and adding a regularization
+% term to mitigate the significance of each weight in thteta.
+J = (1/m)*sum(-y.*log(ghX)-(1-y).*log(1-ghX)) + ...
     (lambda/(2*m))*sum(theta.^2);
 
-grad = (1/m)*sum((ghX-y).*X) + ...
-    (lambda/m).*theta;
+% Factoring in regularization to the remaining weights.
+for i = 1:(length(theta))
+    if i == 1
+        grad = (1/m)*sum((ghX-y).*X);
+    else
+        grad = (1/m)*sum((ghX-y).*X) + (lambda/m)*theta(i);
+    end
+end
 
 % =============================================================
 
