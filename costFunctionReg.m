@@ -6,27 +6,19 @@ function [J, grad] = costFunctionReg(theta, X, y, lambda)
 
 % Initialize some useful values
 m = length(y); % number of training examples
+J = 0;
+grad = zeros(size(theta));
 
-J = 0; % cost, or how far from best fit we are
-grad = zeros(size(theta)); % gradient, rate at which we're approaching min.
+% To start, the cost and gradient will both be unregularized.
+[J, grad] = costFunction(theta, X, y);
 
-% Calculating the logistic regression (sigmoid) of all examples (X)
-% against weights (theta).
-ghX = sigmoid(X*theta);
-
-% Computing the cost of the each feature for all examples in set X 
-% after being adjusted by weights (theta), and adding a regularization
-% term to mitigate the significance of each weight in thteta.
-J = (1/m)*sum(-y.*log(ghX)-(1-y).*log(1-ghX)) + ...
-    (lambda/(2*m))*sum(theta(2:end).^2);
-
-% Getting the "pure" gradient of each term sans regularization
-grad = ((1/m)*sum((ghX-y).*X))';
-
-% Knowing the first element of grad doesn't need to be regularized,
-% we can create a new array which "adds zero" to grad(1) whilst
-% regularizing every subsequent gradient value.
+% Knowing the bias parameter (theta(1)) is not used to regularize,
+% we can create a new array which replaces it with zero, which allows
+% all but the bias parameter to be regularized in the gradient.
 theta_1_eq_0 = [0; theta(2:length(theta))];
+
+% Finally, we can update each output with their regularization factors.
+J = J + (lambda/(2*m))*sum(theta_1_eq_0.^2);
 grad = grad + (lambda/m)*theta_1_eq_0;
 
 % =============================================================

@@ -15,6 +15,6 @@ ghX = sigmoid(X*theta);
 J = (-1/m)*sum(y.*log(ghX)+(1-y).*log(1-ghX));
 
 % How severe the error of J is relative to its global minimum (J'(theta)).
-grad = (1/m)*sum((ghX-y).*X);
+grad = ((1/m)*sum((ghX-y).*X))';
 
 end
