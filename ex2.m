@@ -142,6 +142,9 @@ fprintf(['For a student with scores 45 and 85, we predict an admission ' ...
 fprintf('Expected value: 0.775 +/- 0.002\n\n');
 
 % Compute accuracy on our training set
+disp(size(theta));
+disp(size(X));
+
 p = predict(theta, X);
 
 fprintf('Train Accuracy: %f\n', mean(double(p == y)) * 100);

@@ -4,26 +4,15 @@ function p = predict(theta, X)
 %   p = PREDICT(theta, X) computes the predictions for X using a 
 %   threshold at 0.5 (i.e., if sigmoid(theta'*x) >= 0.5, predict 1)
 
-% Number of training examples.
-m = size(X, 1);
-
-% Initialize p to have equivalent size to the # of training examples.
-p = zeros(m, 1);
+% =========================================================================
 
 % Weighting all entries by derived theta paramters, then transposing to
-% their probability via the sigmoid function.
+% their probability (between 0 and 1) via the sigmoid function.
 ghX = sigmoid(X*theta);
 
-% For each training example, determine predicted outcome.
-for i=1:m
-   if (ghX(i) < 0.5)
-       p(i) = 0;
-   else
-       p(i) = 1;
-   end
-end
-
-
+% For each training example, determine predicted outcome. All values less
+% than 0.5 should return 0, whilst values >= 0.5 return 1.
+p = round(ghX);
 
 % =========================================================================
 
